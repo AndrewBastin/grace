@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="primaryText">#000000</color>
+    <color name="secondaryText">#757575</color>
+
+    <color name="branding_logo_bg">#c2155b</color>
+    <color name="branding_logo_bg_dark">#7d1a48</color>
+
+    <color name="intro_yellow">#ffea00</color>
+    <color name="intro_yellow_dark">#e6bf00</color>
+</resources>

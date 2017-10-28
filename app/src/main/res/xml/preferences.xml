@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:title="Settings"
+>
+
+    <PreferenceCategory android:title="APPEARANCE">
+        <CheckBoxPreference
+                android:key="bool_dark"
+                android:title="Dark Mode"
+                android:summary="Dark Mode applies dark UI backgrounds"
+                android:defaultValue="false"
+        />
+
+        <com.kizitonwose.colorpreference.ColorPreference
+                android:key="color_accent"
+                android:title="Accent Color"
+                android:summary="Color applied to buttons and other actions"
+                android:defaultValue="@color/colorAccent"
+                app:showDialog="false"
+        />
+
+        <com.kizitonwose.colorpreference.ColorPreference
+                android:key="color_primary"
+                android:title="Primary Color"
+                android:summary="Color applied on the app bars and other navigational elements"
+                android:defaultValue="@color/colorPrimary"
+                app:showDialog="false"
+        />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/musicplayersheet_peek_height"
+        android:background="@android:color/black"
+        android:id="@+id/musicPlayerMiniPlayerLayout"
+        android:clickable="true"
+>
+    <LinearLayout
+            android:id="@+id/musicPlayerMiniPlayerPlayButtonLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="8dp"
+            android:paddingEnd="8dp"
+    >
+        <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/vector_material_playpause"
+                android:tint="#ffffff"
+        />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
+        android:layout_toLeftOf="@id/musicPlayerMiniPlayerPlayButtonLayout"
+        android:layout_toStartOf="@id/musicPlayerMiniPlayerPlayButtonLayout"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+    >
+
+        <TextView
+                android:id="@+id/musicPlayerMiniPlayerSongText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="It's Time"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+        />
+
+        <TextView
+                android:id="@+id/musicPlayerMiniPlayerSongInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Night Visions by Imagine Dragons"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+        />
+
+    </LinearLayout>
+</RelativeLayout>

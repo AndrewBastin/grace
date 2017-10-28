@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:id="@+id/mainActivityDrawerLayout"
+>
+    <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+    >
+
+        <android.support.design.widget.AppBarLayout
+                android:id="@+id/mainPageAppBarLayout"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:theme="@style/AppTheme.AppBarOverlay"
+        >
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/mainPageToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:title="@string/app_name"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    android:tag="background|primary_color"
+            >
+                <ImageButton
+                        android:id="@+id/mainPageShuffleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:srcCompat="@drawable/vector_material_shuffle"
+                        android:background="@android:color/transparent"
+                />
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                    android:id="@+id/mainPageTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="background|primary_color"
+            />
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/layout_status_bar_cover"/>
+
+        <android.support.v4.view.ViewPager
+                android:id="@+id/mainPageViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_below="@id/mainPageAppBarLayout"
+        />
+
+        <fragment
+                android:id="@+id/mainPageMusicPlayer"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="andrewbastin.grace.fragments.MusicPlayerFragment"
+                tools:layout="@layout/fragment_music_player"
+                app:layout_behavior="@string/bottom_sheet_behavior"
+                android:fitsSystemWindows="false"
+        />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
+            android:id="@+id/mainActivityDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/menu_main"
+    />
+</android.support.v4.widget.DrawerLayout>

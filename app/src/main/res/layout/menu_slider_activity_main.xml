@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+>
+    <LinearLayout
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_centerVertical="true"
+    >
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <ImageView
+                    android:id="@+id/mainActivitySliderViewLocalMusicImage"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/vector_material_local_music"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/colorAccent"
+            />
+            <TextView
+                    android:layout_toRightOf="@id/mainActivitySliderViewLocalMusicImage"
+                    android:layout_toEndOf="@id/mainActivitySliderViewLocalMusicImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Local Music"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="16dp"
+                    android:background="?attr/selectableItemBackground"
+            />
+        </RelativeLayout>
+
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+        />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <ImageView
+                    android:id="@+id/mainActivitySliderViewSettingsImage"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/vector_material_settings"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/secondaryText"
+            />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="17sp"
+                    android:paddingLeft="16dp"
+                    android:layout_toRightOf="@id/mainActivitySliderViewSettingsImage"
+                    android:layout_toEndOf="@id/mainActivitySliderViewSettingsImage"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <ImageView
+                    android:id="@+id/mainActivitySliderViewAboutImage"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/vector_material_about"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/secondaryText"
+            />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="16dp"
+                    android:textSize="17sp"
+                    android:layout_toRightOf="@id/mainActivitySliderViewAboutImage"
+                    android:layout_toEndOf="@id/mainActivitySliderViewAboutImage"
+            />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

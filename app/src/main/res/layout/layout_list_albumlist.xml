@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/listitem_height"
+                android:paddingLeft="@dimen/listitem_leftrightmargin"
+                android:paddingRight="@dimen/listitem_leftrightmargin"
+                android:background="?attr/selectableItemBackground"
+>
+
+    <ImageView
+            android:id="@+id/mainPageAlbumListImage"
+            android:layout_width="@dimen/listitem_iconsize"
+            android:layout_height="@dimen/listitem_iconsize"
+            android:layout_centerVertical="true"
+            android:contentDescription="Album Art"
+    />
+    <TextView
+            android:id="@+id/mainPageAlbumListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/listitem_textsize"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="sans-serif-medium"
+            android:tag="text_color|primary_text"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/listitem_leftrightmargin"
+            android:layout_marginLeft="@dimen/listitem_leftrightmargin"
+            android:layout_marginRight="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/mainPageAlbumListImage"
+            android:layout_toRightOf="@id/mainPageAlbumListImage"
+    />
+    <TextView
+            android:id="@+id/mainPageAlbumListArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tag="text_color|secondary_text"
+            android:textSize="@dimen/listitem_textsize"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/listitem_leftrightmargin"
+            android:layout_marginLeft="@dimen/listitem_leftrightmargin"
+            android:layout_marginRight="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_below="@+id/mainPageAlbumListTitle"
+            android:layout_toEndOf="@+id/mainPageAlbumListImage"
+            android:layout_toRightOf="@id/mainPageAlbumListImage"
+    />
+</RelativeLayout>
