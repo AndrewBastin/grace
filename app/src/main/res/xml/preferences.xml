@@ -30,5 +30,13 @@
         />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="TESTING">
+        <EditTextPreference
+            android:key="testing_tester_name"
+            android:title="Name"
+            android:summary="Tap here to change the name of the tester"
+            />
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

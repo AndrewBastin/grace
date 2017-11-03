@@ -7,6 +7,7 @@ import andrewbastin.grace.utils.ColorUtils
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.preference.EditTextPreference
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
@@ -62,6 +63,8 @@ class SettingsActivityFragment : PreferenceFragment(), SharedPreferences.OnShare
         private val CONFIG_BOOL_DARK = "bool_dark"
         private val CONFIG_COLOR_ACCENT = "color_accent"
         private val CONFIG_COLOR_PRIMARY = "color_primary"
+
+        private val CONFIG_TESTING_TESTER_NAME = "testing_tester_name"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +81,8 @@ class SettingsActivityFragment : PreferenceFragment(), SharedPreferences.OnShare
         findPreference(CONFIG_COLOR_PRIMARY).setOnPreferenceClickListener {
             onColorConfigClick(it, Prefs.ThemePref.primaryColor)
         }
+
+        (findPreference(CONFIG_TESTING_TESTER_NAME) as EditTextPreference).text = Prefs.UserPref.userName
     }
 
     fun onColorConfigClick(pref: Preference, fallbackColor: Int): Boolean {
@@ -115,6 +120,10 @@ class SettingsActivityFragment : PreferenceFragment(), SharedPreferences.OnShare
                     CONFIG_COLOR_ACCENT -> {
                         Prefs.ThemePref.accentColor = sharedPref.getInt(key, Prefs.ThemePref.accentColor)
                         ATE.config(activity, null).accentColor(Prefs.ThemePref.accentColor).commit()
+                    }
+
+                    CONFIG_TESTING_TESTER_NAME -> {
+                        Prefs.UserPref.userName = sharedPref.getString(key, Prefs.UserPref.userName)
                     }
 
                 }
