@@ -24,6 +24,7 @@ import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageButton
 import com.afollestad.appthemeengine.ATE
@@ -133,6 +134,10 @@ class MainActivity : ATEActivity() {
                                  }
 
         setSupportActionBar(toolbar)
+
+        toolbar.setNavigationOnClickListener {
+            drawerLayout.openDrawer(Gravity.LEFT)
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
