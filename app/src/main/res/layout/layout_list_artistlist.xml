@@ -18,7 +18,7 @@
             android:textSize="@dimen/listitem_textsize"
             android:ellipsize="end"
             android:maxLines="1"
-            android:tag="text_color|secondary_text"
+            android:tag="text_color|primary_text"
             android:layout_marginStart="@dimen/listitem_leftrightmargin"
             android:layout_marginLeft="@dimen/listitem_leftrightmargin"
             android:layout_centerVertical="true"
