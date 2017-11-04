@@ -15,19 +15,26 @@ object LastfmAPIHelper {
 
     val API_BASE_URL = "http://ws.audioscrobbler.com/2.0/"
 
-    fun getArtistImageURL(artistName: String, httpClient: OkHttpClient): String {
+    fun getArtistImageURL(artistName: String, httpClient: OkHttpClient): String? {
 
-        val request = Request.Builder().url(generateURL("artist.getinfo", listOf("api_key" to API_KEY, "format" to "json", "artist" to artistName))).build()
+        try {
 
-        val response = httpClient.newCall(request).execute()
+            val request = Request.Builder().url(generateURL("artist.getinfo", listOf("api_key" to API_KEY, "format" to "json", "artist" to artistName))).build()
 
-        val data = response?.body()?.string()
+            val response = httpClient.newCall(request).execute()
 
-        val rootObj = JSONObject(data)
-        val artistObj = rootObj.getJSONObject("artist")
-        val imageArray = artistObj.getJSONArray("image")
-        val extraLargeImageObj = imageArray.getJSONObject(3)
-        return extraLargeImageObj.getString("#text")
+            val data = response?.body()?.string()
+
+            val rootObj = JSONObject(data)
+            val artistObj = rootObj.getJSONObject("artist")
+            val imageArray = artistObj.getJSONArray("image")
+            val extraLargeImageObj = imageArray.getJSONObject(3)
+
+            return extraLargeImageObj.getString("#text")
+
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     fun getAlbumBio(album: Album): String {

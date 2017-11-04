@@ -63,7 +63,7 @@ class ArtistRecyclerViewAdapter(val context: Context, val httpClient: OkHttpClie
             async {
                 try {
                     val dataPath = await { LastfmAPIHelper.getArtistImageURL(artists[position].name, httpClient) }
-                    if (dataPath != "") {
+                    if (dataPath != null) {
                         artistImageURLCache.put(artists[position].id, dataPath)
                         Picasso.with(context).load(dataPath).transform(CropCircleTransformation()).into(holder?.artistImageView)
                     }
