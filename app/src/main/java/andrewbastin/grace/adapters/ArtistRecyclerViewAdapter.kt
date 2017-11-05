@@ -1,8 +1,8 @@
 package andrewbastin.grace.adapters
 
 import andrewbastin.grace.R
-import andrewbastin.grace.helpers.LastfmAPIHelper
 import andrewbastin.grace.music.data.Artist
+import andrewbastin.grace.singletons.ArtistImageStore
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -13,13 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import co.metalab.asyncawait.async
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import okhttp3.OkHttpClient
 
 class ArtistRecyclerViewAdapter(val context: Context, val httpClient: OkHttpClient, val artists: Array<Artist>) : RecyclerView.Adapter<ArtistRecyclerViewViewHolder>(), FastScrollRecyclerView.SectionedAdapter {
-
-    val artistImageURLCache: MutableMap<Long, String> = mutableMapOf()
 
     override fun getSectionName(position: Int) = artists[position].name.substring(0, 1)
 
@@ -56,18 +52,14 @@ class ArtistRecyclerViewAdapter(val context: Context, val httpClient: OkHttpClie
         holder?.artistTitleText?.text = artists[position].name
         holder?.artistImageView?.setImageDrawable(null)
 
-        val cachedVal = artistImageURLCache[artists[position].id]
-        if (cachedVal != null) {
-            if (cachedVal != "") Picasso.with(context).load(cachedVal). transform(CropCircleTransformation()).into(holder?.artistImageView)
-        } else {
-            async {
-                try {
-                    val dataPath = await { LastfmAPIHelper.getArtistImageURL(artists[position].name, httpClient) }
-                    if (dataPath != null) {
-                        artistImageURLCache.put(artists[position].id, dataPath)
-                        Picasso.with(context).load(dataPath).transform(CropCircleTransformation()).into(holder?.artistImageView)
+        async {
+            ArtistImageStore.fetchImage(context, artists[position].name) { image, requestedArtistName ->
+                if (requestedArtistName == artists[position].name) {
+
+                    if (image != null) {
+                        holder?.artistImageView?.setImageBitmap(image)
                     }
-                } catch (e: Exception) {
+
                 }
             }
         }
