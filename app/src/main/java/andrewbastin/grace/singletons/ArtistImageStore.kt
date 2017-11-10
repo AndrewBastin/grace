@@ -15,7 +15,7 @@ object ArtistImageStore {
 
     private val onProgressSaves = mutableSetOf<String>()
 
-    fun fetchImage(context: Context, artistName: String, postFetch: (image: Bitmap?, requestedArtistName: String) -> Unit) {
+    fun fetchImage(context: Context, artistName: String, offline: Boolean = false, postFetch: (image: Bitmap?, requestedArtistName: String) -> Unit) {
 
         // Check if the image is already cached
         if (checkIfCached(context, artistName)) {
@@ -33,7 +33,7 @@ object ArtistImageStore {
 
             postFetch(bitmap, artistName)
 
-        } else {
+        } else if (!offline) {
             async {
                 await {
 
@@ -60,6 +60,8 @@ object ArtistImageStore {
 
                                 if (!onProgressSaves.contains(artistName)) {
 
+                                    onProgressSaves.add(artistName)
+
                                     val outputStream = context.getFileStreamPath("${STORE_PATH}$artistName").outputStream()
 
                                     outputStream.use {
@@ -80,6 +82,17 @@ object ArtistImageStore {
 
         }
 
+    }
+
+    fun getCachedImage(context: Context, artistName: String): Bitmap? {
+        val file = context.getFileStreamPath("$STORE_PATH$artistName")
+        return if (file == null || !file.exists() || onProgressSaves.contains(artistName)) {
+            Log.i("S", "null")
+            null
+        } else {
+            Log.i("S", "pass")
+            file.inputStream().use { BitmapFactory.decodeStream(it) }
+        }
     }
 
     private fun checkIfCached(context: Context, artistName: String): Boolean {
