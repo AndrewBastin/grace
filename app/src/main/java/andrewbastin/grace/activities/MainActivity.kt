@@ -17,6 +17,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -99,8 +100,8 @@ class MainActivity : ATEActivity() {
 
     fun setupStylesForCompat() {
         // Borderless Ripple for Shuffle button on App Bar
-        // VERSION >= LOLLIPOP use borderless else use normal
-        aboveAPI(Build.VERSION_CODES.LOLLIPOP, inclusive = true) {
+        // VERSION >= MARSHMALLOW use borderless else use normal
+        aboveAPI(Build.VERSION_CODES.M, inclusive = true) {
             val attrs = intArrayOf(android.R.attr.selectableItemBackgroundBorderless)
             val typedArray = obtainStyledAttributes(attrs)
             val drawable = typedArray.getDrawable(0)
