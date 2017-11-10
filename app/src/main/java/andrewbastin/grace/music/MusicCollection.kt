@@ -11,6 +11,15 @@ import android.content.ContentResolver
  */
 object MusicCollection {
 
+    // region Placeholders
+
+    // Placeholders are not meant to be displayed to the user
+
+    val PLACEHOLDER_ARTIST = Artist(-1, "<placeholder>")
+
+    // endregion
+
+
     /**
      * Array containing all detected songs in the user's device
      */
@@ -53,13 +62,10 @@ object MusicCollection {
         initialized = true
     }
 
-    fun getSongById(id: Long) = songs.firstOrNull { it.id == id }
+
+    // region Queries
 
     fun getArtistById(id: Long) = artists.firstOrNull { it.id == id }
-
-    fun getAlbumById(id: Long) = albums.firstOrNull { it.id == id }
-
-    fun getSongsFromAlbum(album: Album) = songs.filter { it.albumID == album.id }.toTypedArray()
 
     fun getArtistsInSongs(songs: Array<Song>): Array<Artist> {
         val filteredArtistIds = mutableSetOf<Long>()
@@ -74,4 +80,29 @@ object MusicCollection {
 
         return response.toTypedArray()
     }
+
+    fun getAlbumsFromArtist(artist: Artist): Array<Album> {
+
+        val albums = arrayListOf<Album>()
+
+        getSongsFromArtist(artist).forEach {
+
+            if (!albums.contains(getAlbumById(it.albumID))) {
+                albums.add(getAlbumById(it.albumID)!!)
+            }
+
+        }
+
+        return albums.toTypedArray()
+    }
+
+    fun getAlbumById(id: Long) = albums.firstOrNull { it.id == id }
+
+    fun getSongById(id: Long) = songs.firstOrNull { it.id == id }
+
+    fun getSongsFromAlbum(album: Album) = songs.filter { it.albumID == album.id }.toTypedArray()
+
+    fun getSongsFromArtist(artist: Artist) = songs.filter { it.artistID == artist.id }.toTypedArray()
+
+    // endregion
 }
