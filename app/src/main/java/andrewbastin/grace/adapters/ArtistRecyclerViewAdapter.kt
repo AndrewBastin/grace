@@ -1,9 +1,12 @@
 package andrewbastin.grace.adapters
 
 import andrewbastin.grace.R
+import andrewbastin.grace.activities.ArtistDetailActivity
+import andrewbastin.grace.music.MusicCollection
 import andrewbastin.grace.music.data.Artist
 import andrewbastin.grace.singletons.ArtistImageStore
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,6 +54,7 @@ class ArtistRecyclerViewAdapter(val context: Context, val httpClient: OkHttpClie
     override fun onBindViewHolder(holder: ArtistRecyclerViewViewHolder?, position: Int) {
         holder?.artistTitleText?.text = artists[position].name
         holder?.artistImageView?.setImageDrawable(null)
+        holder?.artistID = artists[position].id
 
         async {
             ArtistImageStore.fetchImage(context, artists[position].name) { image, requestedArtistName ->
@@ -58,6 +62,7 @@ class ArtistRecyclerViewAdapter(val context: Context, val httpClient: OkHttpClie
 
                     if (image != null) {
                         holder?.artistImageView?.setImageBitmap(image)
+                        holder?.artistImageView?.requestLayout()
                     }
 
                 }
@@ -104,10 +109,18 @@ class ArtistRecyclerViewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     init {
         view.setOnClickListener {
-            Log.i("Click!!!", "Click!!!")
+
+            if (artistID != MusicCollection.PLACEHOLDER_ARTIST.id) {
+                val intent = Intent(view.context, ArtistDetailActivity::class.java)
+                intent.putExtra(ArtistDetailActivity.INTENT_INFO_ARTIST_ID, artistID)
+
+                view.context.startActivity(intent)
+            }
         }
     }
 
     val artistTitleText: TextView = view.findViewById(R.id.mainPageArtistListTitle)
     val artistImageView: ImageView = view.findViewById(R.id.mainPageArtistListImage)
+
+    var artistID: Long = MusicCollection.PLACEHOLDER_ARTIST.id
 }
