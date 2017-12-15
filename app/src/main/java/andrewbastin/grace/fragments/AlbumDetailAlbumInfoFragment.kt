@@ -17,6 +17,7 @@ import andrewbastin.grace.music.data.Artist
 import andrewbastin.grace.singletons.GraceHttpClient
 import andrewbastin.grace.utils.aboveAPI
 import andrewbastin.grace.utils.untilAPI
+import android.annotation.SuppressLint
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
@@ -44,6 +45,7 @@ class AlbumDetailAlbumInfoFragment : Fragment() {
        return inflater?.inflate(R.layout.fragment_album_detail_album_info, container, false)
     }
 
+    @SuppressLint("NewApi")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

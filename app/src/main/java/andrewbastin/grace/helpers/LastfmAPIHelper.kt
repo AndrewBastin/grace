@@ -1,6 +1,8 @@
 package andrewbastin.grace.helpers
 
+import andrewbastin.grace.extensions.json
 import andrewbastin.grace.music.data.Album
+import andrewbastin.grace.music.data.Artist
 import andrewbastin.grace.singletons.GraceHttpClient
 import andrewbastin.grace.utils.aboveAPI
 import android.text.Html
@@ -38,20 +40,38 @@ object LastfmAPIHelper {
     }
 
     fun getAlbumBio(album: Album): String {
-        val request = Request.Builder().url(generateURL("album.getinfo", listOf("api_key" to API_KEY,
-                                                                                "format" to "json",
-                                                                                "artist" to album.artistName,
-                                                                                "album" to album.title))
-        ).build()
+        val request = Request.Builder().url(generateURL("album.getinfo", listOf(
+                "api_key" to API_KEY,
+                "format" to "json",
+                "artist" to album.artistName,
+                "album" to album.title
+        ))).build()
 
         val response = GraceHttpClient.client.newCall(request).execute()
         val data = response.body()?.string()
 
-        val rootObj = JSONObject(data)
-        val albumObj = rootObj.getJSONObject("album")
-        val wikiObj = albumObj.getJSONObject("wiki")
+        val rootObj = response.body()?.json()
 
-        return wikiObj.getString("content")
+        val albumObj = rootObj?.getJSONObject("album")
+        val wikiObj = albumObj?.getJSONObject("wiki")
+
+        return wikiObj?.getString("content") ?: ""
+    }
+
+    fun getArtistBio(artist: Artist): String {
+        val request = Request.Builder().url(generateURL("artist.getinfo", listOf(
+                "api_key" to API_KEY,
+                "format" to "json",
+                "artist" to artist.name
+        ))).build()
+
+        val response = GraceHttpClient.client.newCall(request).execute()
+
+        val rootObj = response.body()?.json()
+        val artistObj = rootObj?.getJSONObject("artist")
+        val bioObj = artistObj?.getJSONObject("bio")
+
+        return bioObj?.getString("content") ?: ""
     }
 
     private fun generateURL(method: String, params: List<Pair<String, String>>): String {

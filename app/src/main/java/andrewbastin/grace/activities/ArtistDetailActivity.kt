@@ -4,6 +4,7 @@ import andrewbastin.grace.R
 import andrewbastin.grace.adapters.ViewPagerAdapter
 import andrewbastin.grace.extensions.bind
 import andrewbastin.grace.extensions.getImageAsBitmap
+import andrewbastin.grace.fragments.ArtistDetailArtistAboutFragment
 import andrewbastin.grace.fragments.ArtistDetailArtistAlbumsFragment
 import andrewbastin.grace.fragments.ArtistDetailArtistSongsFragment
 import andrewbastin.grace.music.MusicCollection
@@ -15,6 +16,7 @@ import andrewbastin.grace.singletons.Prefs
 import andrewbastin.grace.utils.ColorUtils
 import andrewbastin.grace.utils.aboveAPI
 import andrewbastin.grace.utils.onAPI
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -79,6 +81,7 @@ class ArtistDetailActivity : ATEActivity() {
     private val viewPager: ViewPager by bind(R.id.artistDetailViewPager)
 
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -194,6 +197,7 @@ class ArtistDetailActivity : ATEActivity() {
 
     fun setupTabLayout() {
         val pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        pagerAdapter.addPage("About", ArtistDetailArtistAboutFragment.createInstance(artist.id))
         pagerAdapter.addPage("Albums", ArtistDetailArtistAlbumsFragment.createInstance(artist.id))
         pagerAdapter.addPage("Songs", ArtistDetailArtistSongsFragment.createInstance(artist.id))
         viewPager.adapter = pagerAdapter
