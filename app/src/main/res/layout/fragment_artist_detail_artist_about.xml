@@ -26,6 +26,7 @@
                 android:padding="16dp"
                 android:text="ABOUT"
                 android:textColor="@color/colorAccent"
+                android:tag="text_color|accent_color"
                 android:textStyle="bold"
                 />
 

@@ -25,6 +25,7 @@
                     android:padding="16dp"
                     android:text="ABOUT"
                     android:textColor="@color/colorAccent"
+                    android:tag="text_color|accent_color"
                     android:textStyle="bold"
             />
 
@@ -52,6 +53,7 @@
                     android:padding="16dp"
                     android:text="ARTISTS FEATURED"
                     android:textColor="@color/colorAccent"
+                    android:tag="text_color|accent_color"
                     android:textStyle="bold"
             />
             <android.support.v7.widget.RecyclerView
