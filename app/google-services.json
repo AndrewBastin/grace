@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "72902156616",
+    "firebase_url": "https://grace-app-1.firebaseio.com",
+    "project_id": "grace-app-1",
+    "storage_bucket": "grace-app-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72902156616:android:99116a4d3e55e8db",
+        "android_client_info": {
+          "package_name": "andrewbastin.grace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72902156616-ae0iud0gdc5o36vlumj86nvagnheojuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN3KpbA5cLghsXbscPFpKEnZ7e-b6AG4k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
