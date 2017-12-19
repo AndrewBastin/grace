@@ -35,8 +35,7 @@ class GraceApp : Application() {
             GraceHttpClient.initialize(applicationContext)
 
 
-            MusicPlayerManager.setContext(applicationContext)
-            MusicPlayerManager.startMusicPlayerService()
+            MusicPlayerManager.startMusicPlayerService(applicationContext)
 
             generatePicassoSingleton()
 

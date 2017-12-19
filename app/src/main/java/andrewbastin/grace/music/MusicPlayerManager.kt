@@ -27,12 +27,6 @@ object MusicPlayerManager : MusicPlayerService.Listener {
     var mediaPlayer: MediaPlayer? = null
     var musicPlayerService: MusicPlayerService? = null
 
-    private var context: Context? = null
-
-    fun setContext(context: Context) {
-        this.context = context
-    }
-
     fun addMusicPlayerListener(eventListener: MusicPlayerEventListener) {
         eventListeners.add(WeakReference(eventListener))
     }
@@ -40,12 +34,10 @@ object MusicPlayerManager : MusicPlayerService.Listener {
     fun setCurrentSong(song: Song) {
         async {
             await {
-                if (context != null) {
-                    if (musicPlayerService != null) {
-                        val musicQueue = Queue(Queue.TYPE_ALL_SONGS, MusicCollection.songs)
-                        musicQueue.setIndexToSong(song)
-                        musicPlayerService?.setPlayQueue(musicQueue, true)
-                    }
+                if (musicPlayerService != null) {
+                    val musicQueue = Queue(Queue.TYPE_ALL_SONGS, MusicCollection.songs)
+                    musicQueue.setIndexToSong(song)
+                    musicPlayerService?.setPlayQueue(musicQueue, true)
                 }
             }
             eventListeners.forEach {
@@ -58,34 +50,30 @@ object MusicPlayerManager : MusicPlayerService.Listener {
 
     fun playQueue(queue: Queue) {
         async {
-            if (context != null) {
-                if (musicPlayerService != null) {
-                    await { musicPlayerService?.setPlayQueue(queue, true) }
+            if (musicPlayerService != null) {
+                await { musicPlayerService?.setPlayQueue(queue, true) }
 
-                    eventListeners.forEach {
-                        it.accessSafely {
-                            onCurrentSongChange(queue.currentSong!!)
-                        }
+                eventListeners.forEach {
+                    it.accessSafely {
+                        onCurrentSongChange(queue.currentSong!!)
                     }
                 }
             }
         }
     }
 
-    fun startMusicPlayerService() {
-        if (context != null) {
-            context?.bindService(Intent(context, MusicPlayerService::class.java), object: ServiceConnection {
-                override fun onServiceDisconnected(className: ComponentName?) {
-                    musicPlayerService = null
-                }
+    fun startMusicPlayerService(context: Context) {
+        context.bindService(Intent(context, MusicPlayerService::class.java), object: ServiceConnection {
+            override fun onServiceDisconnected(className: ComponentName?) {
+                musicPlayerService = null
+            }
 
-                override fun onServiceConnected(className: ComponentName?, binder: IBinder?) {
-                    musicPlayerService = (binder as MusicPlayerService.MusicPlayerServiceBinder).getService()
-                    musicPlayerService?.addEventListener(this@MusicPlayerManager)
-                }
-            }, Context.BIND_AUTO_CREATE)
-            context?.startService(Intent(context, MusicPlayerService::class.java))
-        }
+            override fun onServiceConnected(className: ComponentName?, binder: IBinder?) {
+                musicPlayerService = (binder as MusicPlayerService.MusicPlayerServiceBinder).getService()
+                musicPlayerService?.addEventListener(this@MusicPlayerManager)
+            }
+        }, Context.BIND_AUTO_CREATE)
+        context.startService(Intent(context, MusicPlayerService::class.java))
     }
 
     /**
