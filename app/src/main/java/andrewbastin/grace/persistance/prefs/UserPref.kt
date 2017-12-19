@@ -1,4 +1,4 @@
-package andrewbastin.grace.persistance
+package andrewbastin.grace.persistance.prefs
 
 import android.content.Context
 

@@ -1,7 +1,7 @@
 package andrewbastin.grace.singletons
 
-import andrewbastin.grace.persistance.ThemePref
-import andrewbastin.grace.persistance.UserPref
+import andrewbastin.grace.persistance.prefs.ThemePref
+import andrewbastin.grace.persistance.prefs.UserPref
 import android.content.Context
 
 object Prefs {
