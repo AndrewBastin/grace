@@ -3,8 +3,12 @@ package andrewbastin.grace.music
 import andrewbastin.grace.helpers.MusicHelper
 import andrewbastin.grace.music.data.Album
 import andrewbastin.grace.music.data.Artist
+import andrewbastin.grace.music.data.Playlist
 import andrewbastin.grace.music.data.Song
+import andrewbastin.grace.singletons.GraceDBs
 import android.content.ContentResolver
+import co.metalab.asyncawait.async
+import kotlin.properties.Delegates
 
 /**
  * Manipulates and presents the user's music collection
@@ -38,6 +42,8 @@ object MusicCollection {
     var albums: Array<Album> = arrayOf()
         private set
 
+    var playlists: Array<Playlist> = arrayOf()
+
     /**
      * Whether the Music Collection was initialized or not
      */
@@ -49,7 +55,7 @@ object MusicCollection {
      *
      * @param contentResolver Instance of ContentResolver to fetch the data using
      */
-    fun initialize(contentResolver: ContentResolver) {
+    fun loadMediaStoreData(contentResolver: ContentResolver) {
         songs = MusicHelper.getAllSongs(contentResolver)
         songs.sort()
 
@@ -60,6 +66,14 @@ object MusicCollection {
         albums.sort()
 
         initialized = true
+    }
+
+    fun loadPlaylists(postFunc: () -> Unit) {
+        async {
+            await { playlists = GraceDBs.playlistsDB.playlistDAO().getAllPlaylists().map { it.getPlaylist() }.toTypedArray() }
+
+            postFunc()
+        }
     }
 
 
