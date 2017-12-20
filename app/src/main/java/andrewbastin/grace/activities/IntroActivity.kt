@@ -53,7 +53,7 @@ class IntroActivity : MaterialIntroActivity() {
     override fun onFinish() {
         super.onFinish()
 
-        MusicCollection.initialize(contentResolver)
+        MusicCollection.loadMediaStoreData(contentResolver)
         Prefs.UserPref.userSetup = true
 
         startActivity(Intent(this, MainActivity::class.java))

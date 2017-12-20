@@ -2,6 +2,7 @@ package andrewbastin.grace
 
 import andrewbastin.grace.music.MusicCollection
 import andrewbastin.grace.music.MusicPlayerManager
+import andrewbastin.grace.singletons.GraceDBs
 import andrewbastin.grace.singletons.GraceHttpClient
 import andrewbastin.grace.singletons.Prefs
 import android.app.Application
@@ -33,6 +34,8 @@ class GraceApp : Application() {
             Prefs.loadPrefs(this)
 
             GraceHttpClient.initialize(applicationContext)
+
+            GraceDBs.loadDBs(applicationContext)
 
 
             MusicPlayerManager.startMusicPlayerService(applicationContext)
