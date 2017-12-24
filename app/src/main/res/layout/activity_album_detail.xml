@@ -30,8 +30,8 @@
             <andrewbastin.grace.views.SquareImageView
                     android:id="@+id/albumDetailAlbumArt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7"
