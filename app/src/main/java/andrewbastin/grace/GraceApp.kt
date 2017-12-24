@@ -4,11 +4,14 @@ import andrewbastin.grace.music.MusicCollection
 import andrewbastin.grace.music.MusicPlayerManager
 import andrewbastin.grace.singletons.GraceDBs
 import andrewbastin.grace.singletons.GraceHttpClient
+import andrewbastin.grace.singletons.GraceNotificationChannels
 import andrewbastin.grace.singletons.Prefs
+import andrewbastin.grace.utils.aboveAPI
 import android.app.Application
 import android.graphics.Color
 import android.preference.PreferenceManager
 import android.util.Log
+import android.widget.Toast
 import com.afollestad.appthemeengine.ATE
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -37,6 +40,14 @@ class GraceApp : Application() {
 
             GraceDBs.loadDBs(applicationContext)
 
+
+
+            // Notification Channel installation for Oreo and above
+            aboveAPI(26, true) {
+                GraceNotificationChannels.createChannels(this)
+            }
+
+            
 
             MusicPlayerManager.startMusicPlayerService(applicationContext)
 

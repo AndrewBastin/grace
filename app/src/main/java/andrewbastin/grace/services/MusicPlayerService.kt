@@ -4,6 +4,7 @@ import andrewbastin.grace.R
 import andrewbastin.grace.extensions.accessSafely
 import andrewbastin.grace.music.data.Queue
 import andrewbastin.grace.music.data.Song
+import andrewbastin.grace.singletons.GraceNotificationChannels
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
@@ -16,12 +17,13 @@ import android.media.AudioManager
 import android.media.session.MediaSession
 import android.media.session.PlaybackState
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import android.support.v7.app.NotificationCompat
+import android.support.v4.app.NotificationCompat
 import android.support.v7.graphics.Palette
 import android.text.Spannable
 import android.text.SpannableString
@@ -440,13 +442,14 @@ class MusicPlayerService : Service() {
 
         val palette = Palette.from(albumArt).generate()
 
-        return NotificationCompat.Builder(this)
+
+        return NotificationCompat.Builder(this, GraceNotificationChannels.ID_PLAYBACK)
                 .setDeleteIntent(deletePendingIntent)
                 .setOngoing(playbackState.state == PlaybackStateCompat.STATE_PLAYING)
                 .addAction(R.drawable.ic_notif_prev, "Previous", prevPendingIntent)
                 .addAction(addPlayOrPauseAction())
                 .addAction(R.drawable.ic_notif_next, "Next", nextPendingIntent)
-                .setStyle(NotificationCompat.MediaStyle().setMediaSession(mediaSession.sessionToken).setShowActionsInCompactView(0, 1, 2))
+                .setStyle( android.support.v4.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.sessionToken).setShowActionsInCompactView(0, 1, 2))
                 .setSmallIcon(R.drawable.ic_music_player_notif)
                 .setContentTitle(playQueue.currentSong?.title)
                 .setContentText(spannableText)
