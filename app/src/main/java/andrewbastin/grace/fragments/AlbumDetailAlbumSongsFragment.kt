@@ -14,9 +14,12 @@ import andrewbastin.grace.music.MusicPlayerManager
 import andrewbastin.grace.music.data.Queue
 import andrewbastin.grace.music.data.Song
 import andrewbastin.grace.extensions.bind
+import andrewbastin.grace.utils.ColorUtils
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import com.afollestad.appthemeengine.ATE
+import com.afollestad.appthemeengine.Config
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 
 
@@ -53,6 +56,17 @@ class AlbumDetailAlbumSongsFragment : Fragment() {
         songRecyclerView.adapter = adapter
         songRecyclerView.itemAnimator = DefaultItemAnimator()
         songRecyclerView.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
+
+        // Theming
+        if (ATE.config(activity, null).isConfigured) {
+
+            val accentColor = Config.accentColor(activity, null)
+
+            songRecyclerView.setPopupBgColor(accentColor)
+            songRecyclerView.setThumbColor(accentColor)
+            songRecyclerView.setPopupTextColor(ColorUtils.getBlackWhiteContrast(accentColor))
+
+        }
     }
 
     fun getAlbumSongsFromArgs(): Array<Song> {

@@ -15,10 +15,13 @@ import andrewbastin.grace.music.MusicCollection
 import andrewbastin.grace.music.MusicPlayerManager
 import andrewbastin.grace.music.data.Album
 import andrewbastin.grace.music.data.Queue
+import andrewbastin.grace.utils.ColorUtils
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import com.afollestad.appthemeengine.ATE
+import com.afollestad.appthemeengine.Config
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 
 class ArtistDetailArtistAlbumsFragment : Fragment() {
@@ -70,6 +73,17 @@ class ArtistDetailArtistAlbumsFragment : Fragment() {
             adapter = listAdapter
             itemAnimator = DefaultItemAnimator()
             addItemDecoration(DividerItemDecoration(context, listLayoutManager.orientation))
+        }
+
+        // Theming
+        if (ATE.config(activity, null).isConfigured) {
+
+            val accentColor = Config.accentColor(activity, null)
+
+            recyclerView.setPopupBgColor(accentColor)
+            recyclerView.setThumbColor(accentColor)
+            recyclerView.setPopupTextColor(ColorUtils.getBlackWhiteContrast(accentColor))
+
         }
     }
 
