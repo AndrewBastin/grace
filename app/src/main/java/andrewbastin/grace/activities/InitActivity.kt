@@ -8,6 +8,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
+import android.widget.Toast
 
 class InitActivity : Activity() {
 
@@ -15,14 +16,13 @@ class InitActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         // Check if permissions are granted
-        val storagePermStat = ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val storagePermStat = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
 
         val intent = if (storagePermStat == PackageManager.PERMISSION_GRANTED && Prefs.UserPref.userSetup) {
-            MusicCollection.loadMediaStoreData(applicationContext.contentResolver)
+            MusicCollection.loadMediaStoreData(contentResolver)
 
             Intent(this, MainActivity::class.java)
         } else {
-
             Intent(this,  IntroActivity::class.java)
         }
 
