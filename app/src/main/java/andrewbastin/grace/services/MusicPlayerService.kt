@@ -440,7 +440,8 @@ class MusicPlayerService : Service() {
 
         val albumArt = playQueue.currentSong?.getAlbumArt(contentResolver)
 
-        val palette = Palette.from(albumArt).generate()
+        val palette: Palette? = if (albumArt != null) Palette.from(albumArt).generate() else null
+
 
 
         return NotificationCompat.Builder(this, GraceNotificationChannels.ID_PLAYBACK)
@@ -457,7 +458,7 @@ class MusicPlayerService : Service() {
                 .setWhen(0L)
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setColor(palette.getVibrantColor(Color.BLACK))
+                .setColor(palette?.getVibrantColor(Color.BLACK) ?: Color.BLACK)
                 .build()
     }
 
