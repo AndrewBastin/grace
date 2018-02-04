@@ -42,7 +42,7 @@ class ArtistDetailArtistAlbumsFragment : Fragment() {
         val artistID = arguments?.getLong(ArtistDetailArtistAlbumsFragment.ID_BUNDLE_ARTIST_ID, -1)
         if (artistID != -1L) {
 
-            MusicCollection.getAlbumsFromArtist(MusicCollection.getArtistById(artistID!!)!!)
+            MusicCollection.getAlbumsFromArtist(MusicCollection.getArtistById(artistID!!)!!).sortedArray()
 
         } else {
             activity.finish()
