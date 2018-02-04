@@ -205,7 +205,9 @@ class AlbumDetailActivity : ATEActivity() {
         when (item?.itemId) {
 
             R.id.albumDetailMenu_Play -> {
-                MusicPlayerManager.playQueue(Queue(Queue.TYPE_ALBUM, songListFragment.albumSongs))
+                val queue = Queue(Queue.TYPE_ALBUM, songListFragment.albumSongs)
+                queue.setIndexToSong(songListFragment.albumSongs.first())
+                MusicPlayerManager.playQueue(queue)
             }
 
         }
