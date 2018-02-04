@@ -1,6 +1,7 @@
 package andrewbastin.grace.services
 
 import andrewbastin.grace.R
+import andrewbastin.grace.activities.MainActivity
 import andrewbastin.grace.extensions.accessSafely
 import andrewbastin.grace.music.data.Queue
 import andrewbastin.grace.music.data.Song
@@ -356,9 +357,7 @@ class MusicPlayerService : Service() {
 
     fun setPlayQueue(newQueue: Queue, startPlaying: Boolean = true) {
         playQueue = newQueue
-        if (startPlaying) {
-            play()
-        }
+        if (startPlaying) play()
         callOnQueueChanged()
     }
 
@@ -435,6 +434,10 @@ class MusicPlayerService : Service() {
         deleteIntent.action = ACTION_DELETE
         val deletePendingIntent = PendingIntent.getService(this, REQUEST_DEL, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val contentIntent = Intent(this, MainActivity::class.java)
+        contentIntent.action = MainActivity.ACTION_SHOW_MEDIA_PLAYER
+        val contentPendingIntent = PendingIntent.getActivity(this, 0, contentIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+
         val spannableText = SpannableString("${playQueue.currentSong?.albumName} by ${playQueue.currentSong?.artistName}")
         spannableText.setSpan(StyleSpan(android.graphics.Typeface.BOLD), playQueue.currentSong?.albumName?.length!! + 1, playQueue.currentSong?.albumName?.length!! + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -445,6 +448,7 @@ class MusicPlayerService : Service() {
 
 
         return NotificationCompat.Builder(this, GraceNotificationChannels.ID_PLAYBACK)
+                .setContentIntent(contentPendingIntent)
                 .setDeleteIntent(deletePendingIntent)
                 .setOngoing(playbackState.state == PlaybackStateCompat.STATE_PLAYING)
                 .addAction(R.drawable.ic_notif_prev, "Previous", prevPendingIntent)

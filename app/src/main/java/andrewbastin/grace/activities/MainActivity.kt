@@ -35,7 +35,7 @@ import kotlin.system.measureTimeMillis
 class MainActivity : ATEActivity() {
 
     companion object {
-        val ID_REQUEST_SHOW_MEDIA_PLAYER = 10000
+        val ACTION_SHOW_MEDIA_PLAYER = "andrewbastin.grace.actions.mainactivity.showmediaplayer"
         // TODO : Implement handling this request
     }
 
@@ -49,6 +49,7 @@ class MainActivity : ATEActivity() {
     private val drawer: NavigationView by bind(R.id.mainActivityDrawer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         val timeTaken = measureTimeMillis {
             super.onCreate(savedInstanceState)
 
@@ -95,7 +96,17 @@ class MainActivity : ATEActivity() {
 
         }
 
+        handleIntents()
+
         Log.i("GraceApp/MainActivity", "Loading Activity took $timeTaken ms")
+    }
+
+    fun handleIntents() {
+
+        if (intent.action == ACTION_SHOW_MEDIA_PLAYER) {
+            musicPlayerBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
     }
 
     fun setupStylesForCompat() {
@@ -161,6 +172,7 @@ class MainActivity : ATEActivity() {
         adapter.addPage("Songs", MainPageSongList())
         adapter.addPage("Albums", MainPageAlbumList())
         adapter.addPage("Artists", MainPageArtistList())
+        adapter.addPage("Playlists", MainPagePlaylistList())
         viewPager.adapter = adapter
     }
 
