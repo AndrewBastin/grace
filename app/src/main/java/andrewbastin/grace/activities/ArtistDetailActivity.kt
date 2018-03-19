@@ -1,16 +1,13 @@
 package andrewbastin.grace.activities
 
 import andrewbastin.grace.R
-import andrewbastin.grace.adapters.ViewPagerAdapter
+import andrewbastin.grace.adapters.GraceFragmentPagerAdapter
 import andrewbastin.grace.extensions.bind
 import andrewbastin.grace.extensions.getImageAsBitmap
 import andrewbastin.grace.fragments.ArtistDetailArtistAboutFragment
 import andrewbastin.grace.fragments.ArtistDetailArtistAlbumsFragment
 import andrewbastin.grace.fragments.ArtistDetailArtistSongsFragment
 import andrewbastin.grace.music.MusicCollection
-import andrewbastin.grace.music.MusicPlayerManager
-import andrewbastin.grace.music.data.Artist
-import andrewbastin.grace.music.data.Queue
 import andrewbastin.grace.singletons.ArtistImageStore
 import andrewbastin.grace.singletons.Prefs
 import andrewbastin.grace.utils.ColorUtils
@@ -22,12 +19,10 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.TabLayout
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.graphics.Palette
@@ -196,7 +191,8 @@ class ArtistDetailActivity : ATEActivity() {
     }
 
     fun setupTabLayout() {
-        val pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        //val pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        val pagerAdapter = GraceFragmentPagerAdapter(supportFragmentManager)
         pagerAdapter.addPage("About", ArtistDetailArtistAboutFragment.createInstance(artist.id))
         pagerAdapter.addPage("Albums", ArtistDetailArtistAlbumsFragment.createInstance(artist.id))
         pagerAdapter.addPage("Songs", ArtistDetailArtistSongsFragment.createInstance(artist.id))
