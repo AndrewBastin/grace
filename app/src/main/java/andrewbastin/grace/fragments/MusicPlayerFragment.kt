@@ -21,6 +21,7 @@ import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.Fragment
 import android.support.v7.graphics.Palette
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,14 +100,21 @@ class MusicPlayerFragment : Fragment(), MusicPlayerEventListener, BottomSheetEve
 
     override fun onSlideStateChanged(newState: Int) {
         slideState = newState
-        if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-            aboveAPI(Build.VERSION_CODES.LOLLIPOP) {
-                view?.systemUiVisibility = 0
+        when (newState) {
+            BottomSheetBehavior.STATE_COLLAPSED -> {
+                aboveAPI(Build.VERSION_CODES.LOLLIPOP) {
+                    view?.systemUiVisibility = 0
+                }
+
+                miniPlayerLayout.alpha = 1f
             }
-        }
-        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-            aboveAPI(Build.VERSION_CODES.LOLLIPOP) {
-                if (lightStatusBarActive) view?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+            BottomSheetBehavior.STATE_EXPANDED -> {
+                aboveAPI(Build.VERSION_CODES.LOLLIPOP) {
+                    if (lightStatusBarActive) view?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
+
+                miniPlayerLayout.alpha = 0f
             }
         }
     }
