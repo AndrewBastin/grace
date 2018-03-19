@@ -90,11 +90,9 @@ class Queue(val queueType: Int = Queue.TYPE_UNSPECIFIED, songs: Array<Song>, def
      *  Sets index to the index of a song if the song exists, else, the index is not changed
      */
     fun setIndexToSong(song: Song) {
-        for (i in songQueue.indices) {
-            if (songQueue[i] == song) {
-                goToIndex(i)
-            }
-        }
+        songQueue.indices
+                .filter { songQueue[it] == song }
+                .forEach { goToIndex(it) }
     }
 
     fun goToIndex(index: Int) {
